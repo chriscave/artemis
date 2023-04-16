@@ -12,18 +12,14 @@ module.exports = {
     const deleteId =
       deleteData["parentOfDeleteId"] ?? deleteData["comIdToDelete"];
 
-    const comment = commentData.find(
+    let parent = commentData;
+    let commentToDelete = parent.find(
       (comment) => comment["comId"] === deleteId
     );
-
     if (deleteData["parentOfDeleteId"]) {
-      const parentReplies = comment["replies"];
-      const replyToDelete = parentReplies.find(
-        (reply) => reply["comId"] === deleteId
-      );
-      parentReplies.splice(parentReplies.indexOf(replyToDelete), 1);
-    } else {
-      commentData.splice(commentData.indexOf(comment), 1);
+      parent = commentToDelete["replies"];
+      commentToDelete = parent.find((comment) => comment["comId"] === deleteId);
     }
+    parent.splice(parent.indexOf(commentToDelete), 1);
   },
 };
