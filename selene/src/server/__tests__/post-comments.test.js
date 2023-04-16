@@ -1,8 +1,10 @@
-const pushReply = require("../post-comments");
+const postComments = require("../post-comments");
+const pushReply = postComments.pushReply;
+const deleteAction = postComments.deleteAction;
 test("Reply of comment is pushed to parent", () => {
   const commentData = [{ comId: "A", replies: [] }];
   const replyData = {
-    comID: "a1",
+    comId: "a1",
     repliedToCommentId: "A",
   };
   pushReply(commentData, replyData);
@@ -48,4 +50,31 @@ test("Reply is pushed to corrent parent when it is a reply to a reply", () => {
   expect(commentData).toStrictEqual([
     { comId: "A", replies: [{ comId: "a1" }, replyData] },
   ]);
+});
+
+test("Comment is deleted", () => {
+  const commentData = [{ comId: "A", replies: [] }];
+  const deleteData = { comIdToDelete: "A" };
+  deleteAction(commentData, deleteData);
+  expect(commentData).toStrictEqual([]);
+});
+
+test("Comment matching Id is deleted", () => {
+  const commentData = [
+    { comId: "A", replies: [] },
+    { comId: "B", replies: [] },
+  ];
+  const deleteData = { comIdToDelete: "B" };
+  deleteAction(commentData, deleteData);
+  expect(commentData).toStrictEqual([{ comId: "A", replies: [] }]);
+});
+
+test("Reply Id is deleted", () => {
+  const commentData = [{ comId: "A", replies: [{ comId: "a1" }] }];
+  const deleteData = {
+    comIdToDelete: "a1",
+    parentOfDeleteId: "A",
+  };
+  deleteAction(commentData, deleteData);
+  expect(commentData).toStrictEqual([{ comId: "A", replies: [] }]);
 });
