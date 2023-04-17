@@ -32,6 +32,15 @@ function PreprintCommentSection() {
       body: JSON.stringify(data),
     });
   }
+  async function deleteAction(data) {
+    await fetch("/api/delete-action", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  }
 
   return (
     <CommentSection
@@ -48,7 +57,7 @@ function PreprintCommentSection() {
       }}
       commentData={data}
       onSubmitAction={(data) => submitComment(data)}
-      onDeleteAction={(data) => console.log("delete data", data)}
+      onDeleteAction={(data) => deleteAction(data)}
       onReplyAction={(data) => submitReply(data)}
       onEditAction={(data) => console.log("edit data", data)}
       currentData={(data) => console.log("current data", data)}

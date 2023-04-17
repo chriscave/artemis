@@ -1,5 +1,7 @@
 // Express server
-const pushReply = require("./post-comments");
+const postComments = require("./post-comments");
+const pushReply = postComments.pushReply;
+const deleteAction = postComments.deleteAction;
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -45,10 +47,11 @@ app.post("/api/submit-reply", (req, res) => {
   });
 });
 
-app.post("/api/save-comment", (req, res) => {
-  const data = req.body;
-  console.log("post_data", data);
-  fs.writeFile("data.json", JSON.stringify(data, (space = 2)), (err) => {
+app.post("/api/delete-action", (req, res) => {
+  const deleteData = req.body;
+  const commentData = JSON.parse(fs.readFileSync("data.json"));
+  deleteAction(commentData, deleteData);
+  fs.writeFile("data.json", JSON.stringify(commentData, (space = 2)), (err) => {
     if (err) {
       console.error(err);
       res.status(500).send("Error saving data");
