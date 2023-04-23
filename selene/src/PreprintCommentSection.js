@@ -52,25 +52,27 @@ function PreprintCommentSection() {
   }
 
   return (
-    <CommentSection
-      currentUser={{
-        currentUserId: "01a",
-        currentUserImg:
-          "https://ui-avatars.com/api/name=Chris&background=random",
-        // currentUserProfile: "https://www.linkedin.com/in/riya-negi-8879631a9/",
-        currentUserFullName: "Chris Cave",
-      }}
-      logIn={{
-        loginLink: "http://localhost:3001/",
-        signupLink: "http://localhost:3001/",
-      }}
-      commentData={data}
-      onSubmitAction={(data) => submitComment(data)}
-      onDeleteAction={(data) => deleteAction(data)}
-      onReplyAction={(data) => submitReply(data)}
-      onEditAction={(data) => editAction(data)}
-      currentData={(data) => console.log("current data", data)}
-    />
+    <div className="comment-section">
+      <CommentSection
+        currentUser={{
+          currentUserId: "01a",
+          currentUserImg:
+            "https://ui-avatars.com/api/name=Chris&background=random",
+          // currentUserProfile: "https://www.linkedin.com/in/riya-negi-8879631a9/",
+          currentUserFullName: "Chris Cave",
+        }}
+        logIn={{
+          loginLink: "http://localhost:3001/",
+          signupLink: "http://localhost:3001/",
+        }}
+        commentData={data}
+        onSubmitAction={(data) => submitComment(data)}
+        onDeleteAction={(data) => deleteAction(data)}
+        onReplyAction={(data) => submitReply(data)}
+        onEditAction={(data) => editAction(data)}
+        currentData={(data) => console.log("current data", data)}
+      />
+    </div>
   );
 }
 

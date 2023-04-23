@@ -1,11 +1,10 @@
 import React from "react";
-import PDFViewer from "./PDFViewer";
-import PreprintCommentSection from "./PreprintCommentSection";
+import PreprintViewer from "./PreprintViewer";
 
 function App() {
   return (
     <div>
-      <PreprintCommentSection />
+      <PreprintViewer />
     </div>
   );
 }
